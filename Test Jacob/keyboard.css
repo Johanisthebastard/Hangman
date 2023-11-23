@@ -27,3 +27,10 @@
     min-width: 0.6em;
     border: 2px solid rgba(129, 52, 52, 0.795);
   }
+
+
+.grey-key {
+
+    background: grey;
+
+  }
