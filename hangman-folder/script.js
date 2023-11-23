@@ -1,4 +1,4 @@
-
+import { easyPeasy, mediumSquezy, hardyParty } from "./wordselect";
 /*
 
 ---- TO DO ------
@@ -20,12 +20,34 @@ const play = document.querySelector('#play-btn')
 
 
 // const gubbe = document.querySelector('.gubbe')
-
+let hangWord = ""
 play.addEventListener('click', () => {
-
-	startPage.classList.add('invisible')
+    startPage.classList.add('invisible')
 	gamePage.classList.remove('invisible')
-
+    const userName = document.querySelector("#userInput").value
+    let difficulty = "";
+    document.querySelectorAll(`input[name="level"]`).forEach(input => {
+        if (input.checked) {
+            difficulty = input.value
+        }
+    })
+    const theDateData = new Date()
+    const userHighscore = {
+        name: userName,
+        date: theDateData,
+        difficulty: difficulty,
+        score: 0,
+        hints: false
+    }
+    if (difficulty === "easy") {
+        hangWord = easyPeasy(word)
+    }
+    else if (difficulty === "medium") {
+        hangWord = mediumSquezy(word)
+    }
+    else if (difficulty === "hard") {
+        hangWord = hardyParty(word)
+    }
 	//Osäker på dessa men en skiss
 	// localStorage.setItem("Name", input.name);
 	// localStorage.setItem("Level", input.level);
