@@ -72,6 +72,7 @@ let currentIndex = 0; // Håller reda på vilken del som visas näst
 parts.forEach(part => part.classList.add('invisible'));
 
 // Varje klick lägger till en kroppsdel
+killBtn = document.querySelector('#kill-btn')
 killBtn.addEventListener('click', () => {
 
     // Visa nuvarande del
