@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="keyboard.css">
     <link rel="stylesheet" href="highscore.css">
-    <script src="wordselect.js" defer></script>
-	<script src="script.js" defer></script>
+    <script src="wordselect.js" type="module" defer></script>
+	<script src="script.js" type="module" defer></script>
 
 
 
@@ -31,7 +31,7 @@
 <div class="user-container">
 
 
-	<div>
+	<div data-key="W">
         <label for="userInput">
 			<input type="text" name="username" id="userInput" placeholder="username" required>
 		</label>
@@ -40,7 +40,7 @@
 
 
 	<div class="levels">
-		<div>
+		<div data-key="W">
 			<h2>Välj nivå</h2>
 		</div>
 
@@ -79,49 +79,49 @@
     </svg>
 </figure>
 
-
+<div class="#" id="TheWord"> </div>
 <!-------- KEYBOARD --------->
-    <div class="key-container">
+   <div class="key-container">
 
-        <div class="row1">
-            <div class="letter"> Q </div>
-            <div class="letter"> W </div>
-            <div class="letter"> E </div>
-            <div class="letter"> R </div>
-            <div class="letter"> T </div>
-            <div class="letter"> Y </div>
-            <div class="letter"> U </div>
-            <div class="letter"> I </div>
-            <div class="letter"> O </div>
-            <div class="letter"> P </div>
-            <div class="letter"> Å </div>
-        </div>
-
-        <div class="row2">
-            <div class="letter"> A </div>
-            <div class="letter"> S </div>
-            <div class="letter"> D </div>
-            <div class="letter"> F </div>
-            <div class="letter"> G </div>
-            <div class="letter"> H </div>
-            <div class="letter"> J </div>
-            <div class="letter"> K </div>
-            <div class="letter"> L </div>
-            <div class="letter"> Ö </div>
-            <div class="letter"> Ä </div>
+            <div class="row1">
+              <div data-key="Q"> Q </div>
+              <div data-key="W"> W </div>
+              <div data-key="E"> E </div>
+              <div data-key="R"> R </div>
+              <div data-key="T"> T </div>
+              <div data-key="Y"> Y </div>
+              <div data-key="U"> U </div>
+              <div data-key="I"> I </div>
+              <div data-key="O"> O </div>
+              <div data-key="P"> P </div>
+              <div data-key="Å"> Å </div>
             </div>
 
-        <div class="row3">
-            <div class="letter"> Z </div>
-            <div class="letter"> X </div>
-            <div class="letter"> C </div>
-            <div class="letter"> V </div>
-            <div class="letter"> B </div>
-            <div class="letter"> N </div>
-            <div class="letter"> M </div>
-        </div>
+            <div class="row2">
+              <div data-key="A"> A </div>
+              <div data-key="S"> S </div>
+              <div data-key="D"> D </div>
+              <div data-key="F"> F </div>
+              <div data-key="G"> G </div>
+              <div data-key="H"> H </div>
+              <div data-key="J"> J </div>
+              <div data-key="K"> K </div>
+              <div data-key="L"> L </div>
+              <div data-key="Ö"> Ö </div>
+              <div data-key="Ä"> Ä </div>
+            </div>
 
-    </div>
+            <div class="row3">
+              <div data-key="Z"> Z </div>
+              <div data-key="X"> X </div>
+              <div data-key="C"> C </div>
+              <div data-key="V"> V </div>
+              <div data-key="B"> B </div>
+              <div data-key="N"> N </div>
+              <div data-key="M"> M </div>
+            </div>
+
+            </div>
 
 <button id="kill-btn"> Press to kill</button>
 
@@ -134,7 +134,7 @@
 	<button class="backToGame-button" id="backToGameBtn">Back to Game</button>
 
     <div class="highScore-container">
-        <table>
+         <table>
 
             <tr>
                 <th scope="col">Player</th>
@@ -150,7 +150,7 @@
                 <td>4,569</td>
                 <td>4,569</td>
             </tr>
-                <tr>
+               <tr>
                 <th scope="row">${user.data}</th>
                 <td>7</td>
                 <td>13</td>
