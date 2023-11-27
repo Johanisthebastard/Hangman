@@ -40,13 +40,13 @@ play.addEventListener('click', () => {
         hints: false
     }
     if (difficulty === "easy") {
-        hangWord = easyPeasy(word)
+        hangWord = easyPeasy(words)
     }
     else if (difficulty === "medium") {
-        hangWord = mediumSquezy(word)
+        hangWord = mediumSquezy(words)
     }
     else if (difficulty === "hard") {
-        hangWord = hardyParty(word)
+        hangWord = hardyParty(words)
     }
 	//Osäker på dessa men en skiss
 	// localStorage.setItem("Name", input.name);
