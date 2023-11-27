@@ -1,4 +1,4 @@
-import { easyPeasy, mediumSquezy, hardyParty } from "./wordselect";
+import { easyPeasy, mediumSquezy, hardyParty } from "./wordselect.js";
 /*
 
 ---- TO DO ------
