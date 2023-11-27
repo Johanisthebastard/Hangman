@@ -1,5 +1,4 @@
 import { easyPeasy, mediumSquezy, hardyParty } from "./wordselect.js";
-import words from "./svenska-ord.js";
 /*
 
 ---- TO DO ------
