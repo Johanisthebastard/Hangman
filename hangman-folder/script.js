@@ -1,4 +1,5 @@
 import { easyPeasy, mediumSquezy, hardyParty } from "./wordselect.js";
+import words from "./svenska-ord.js";
 /*
 
 ---- TO DO ------
@@ -20,7 +21,7 @@ const play = document.querySelector('#play-btn')
 
 
 // const gubbe = document.querySelector('.gubbe')
-let hangWord = ""
+let hangWord = "" ;
 play.addEventListener('click', () => {
     startPage.classList.add('invisible')
 	gamePage.classList.remove('invisible')
