@@ -1,14 +1,4 @@
 
-/*
-
----- TO DO ------
-
-1. Länka Play knappen så att det sparar username + nivå samt bytter section(ändrar css klass till Display: none)
-
-
-*/
-
-//Knapp som döljer första sidan
 //Saknar: Spara ner värdet
 const startPage = document.querySelector('#startSection')
 const gamePage = document.querySelector('#gamePage')
@@ -19,7 +9,6 @@ const play = document.querySelector('#play-btn')
 const killBtn = document.querySelector('#kill-btn')
 
 
-// const gubbe = document.querySelector('.gubbe')
 
 play.addEventListener('click', () => {
 
@@ -35,6 +24,7 @@ play.addEventListener('click', () => {
 
 // Game > Highscore Page
 const scoreButton = document.querySelector('#highScore-btn')
+
 scoreButton.addEventListener('click', () => {
 
 	gamePage.classList.add('invisible')
@@ -42,17 +32,16 @@ scoreButton.addEventListener('click', () => {
 
 })
 
-// Highscore > Game Page (toggle back?)
+// Highscore > Game Page
 
 const backToGame = document.querySelector('#backToGameBtn')
+
 backToGame.addEventListener('click', () => {
 
 	highScorePage.classList.add('invisible')
 	gamePage.classList.remove('invisible')
 
 })
-
-
 
 
 
