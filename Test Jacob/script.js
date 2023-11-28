@@ -16,7 +16,7 @@ const scorePage = document.querySelector('#highScorePage')
 
 
 const play = document.querySelector('#play-btn')
-
+const killBtn = document.querySelector('#kill-btn')
 
 
 // const gubbe = document.querySelector('.gubbe')
