@@ -85,3 +85,10 @@ killBtn.addEventListener('click', () => {
         currentIndex = 0;
     }
 });
+
+
+
+
+
+
+

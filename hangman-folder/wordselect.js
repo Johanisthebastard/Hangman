@@ -60,5 +60,5 @@ function checkLetter(chosenWord, guessedLetter, displayArray) {
 
 console.log('Chosen Word:', chosenWord);
 
-export default checkLetter
+export {chosenWord, wordArray}
 
