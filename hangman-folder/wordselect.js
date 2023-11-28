@@ -1,26 +1,64 @@
 import words from "./svenska-ord.js";
+import { keyDiv } from "./script.js"
 
-let level = null;
+const difficultyRadios = document.querySelectorAll('input[name="level"]');
+const guessInput = document.getElementById('guess');
+const guessButton = document.getElementById('#');
+let chosenWord;
 
-function easyPeasy(words) {
-    const easyWords = words.filter(word => word.length === 10)
-    if (easyWords) {
-        const easyIndex = Math.floor(Math.random() * easyWords.length)
-        return easyWords[easyIndex]
+difficultyRadios.forEach(radio => {
+    radio.addEventListener("change", updateWord);
+});
+
+guessButton.addEventListener('keydown', () => {
+    const guessedLetter = guessInput.value.toLowerCase();
+    if (guessedLetter.length === 1 && /^[a-zA-Z]$/.test(guessedLetter)) {
+        const displayArray = chosenWord ? Array(chosenWord.length).fill('_') : [];
+        console.log(checkLetter(chosenWord, guessedLetter, displayArray));
     }
+});
+
+function updateWord(event) {
+    const selectedDifficulty = event.target.value;
+    chosenWord = chooseWord(words, selectedDifficulty);
+    guessInput.value = '';
 }
 
-function mediumSquezy(words) {
-    const mediumWords = words.filter(word => word.length === 7)
-    if (mediumWords) {
-        const mediumIndex = Math.floor(Math.random() * mediumWords.length)
-        return mediumWords[mediumIndex]
+function chooseWord(words, difficulty) {
+    let filteredWords
+    if (difficulty == 'easy') {
+        filteredWords = words.filter(word => word.length === 10);
     }
-}
-function hardyParty(words) {
-    const hardWords = words.filter(word => word.length === 5)
-    if (hardWords) {
-        const hardIndex = Math.floor(Math.random() * hardWords.length)
-        return hardWords[hardIndex]
+
+    else if (difficulty == 'medium') {
+        filteredWords = words.filter(word => word.length === 7);
     }
+
+    else if (difficulty == 'hard') {
+        filteredWords = words.filter(word => word.length === 5);
+    }
+
+    const index = Math.floor(Math.random() * filteredWords.length);
+    return filteredWords[index]
+
 }
+
+function checkLetter(chosenWord, guessedLetter, displayArray) {
+    const wordArray = chosenWord.split('');
+    let correctGuess = false;
+
+    for (let i = 0; i < wordArray.length; i++) {
+        if (wordArray[i] === guessedLetter) {
+            displayArray[i] = guessedLetter;
+            correctGuess = true;
+        }
+    }
+
+    return correctGuess ? displayArray.join('') : false;
+
+}
+
+console.log('Chosen Word:', chosenWord);
+
+export default checkLetter
+

@@ -67,6 +67,19 @@ body{
 	padding: 1em 3em;
 }
 
+
+.clicked-btn{
+	background-color: grey;
+	color: white
+}
+
+.word-area{
+
+font-size: 2em;
+
+}
+
+
 /*
 .gamePageHide{
 	display: none;

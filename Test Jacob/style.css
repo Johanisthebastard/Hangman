@@ -1,5 +1,6 @@
 
 /*------- FONTS --------*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -69,7 +70,19 @@ body{
 	padding: 1em 3em;
 }
 
-/* 
+.word-area{
+
+	display: flex;
+	justify-content: center;
+	font-size: 2em;
+	color: #ffffff;
+	text-decoration: underline;
+	font-family: 'Roboto Mono', monospace;
+
+
+}
+
+/*
 .gamePageHide{
 	display: none;
 }

@@ -1,4 +1,4 @@
-
+import checkLetter from "./wordselect.js"
 /*
 
 ---- TO DO ------
@@ -55,8 +55,10 @@ backToGame.addEventListener('click', () => {
 
 
 
-
+// Gubben
 const svgElement = document.querySelector('.gubbe svg');
+
+// Gubbens kroppsdelar
 const ground = svgElement.querySelector('#ground');
 const scaffold = svgElement.querySelector('#scaffold');
 const head = svgElement.querySelector('#head');
@@ -72,7 +74,7 @@ let currentIndex = 0; // Håller reda på vilken del som visas näst
 parts.forEach(part => part.classList.add('invisible'));
 
 // Varje klick lägger till en kroppsdel
-killBtn = document.querySelector('#kill-btn')
+const killBtn = document.querySelector('#kill-btn')
 killBtn.addEventListener('click', () => {
 
     // Visa nuvarande del
@@ -87,9 +89,33 @@ killBtn.addEventListener('click', () => {
     }
 });
 
+document.addEventListener('keydown', function(event) {
+    // Konvertera tryckt tangent till stor bokstav
+    const key = event.key.toUpperCase();
+
+    // Hitta div som matchar den tryckta tangenten
+    const keyDiv = document.querySelector(`div[data-key="${key}"]`);
+    if (keyDiv) {
+        keyDiv.classList.add('clicked-btn'); // Lägg till en klass för att indikera aktivering
+
+
+
+        // Kör din funktion här
 
 
 
 
 
 
+        console.log(key + " tangenten trycktes och funktionen aktiverades.");
+    }
+});
+
+
+
+const LetterButtons = document.querySelectorAll("div.key-container div[data-key]")
+LetterButtons.forEach((key)=>{
+  key.addEventListener("click",()=>{
+    guess(key.dataset.key)
+  })
+});
