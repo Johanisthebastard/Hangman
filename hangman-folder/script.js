@@ -1,4 +1,4 @@
-import checkLetter from "./wordselect.js"
+
 /*
 
 ---- TO DO ------
@@ -16,19 +16,19 @@ const scorePage = document.querySelector('#highScorePage')
 
 
 const play = document.querySelector('#play-btn')
-
+const killBtn = document.querySelector('#kill-btn')
 
 
 // const gubbe = document.querySelector('.gubbe')
 
 play.addEventListener('click', () => {
 
-	startPage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
+    startPage.classList.add('invisible')
+    gamePage.classList.remove('invisible')
 
-	//Osäker på dessa men en skiss
-	// localStorage.setItem("Name", input.name);
-	// localStorage.setItem("Level", input.level);
+    //Osäker på dessa men en skiss
+    // localStorage.setItem("Name", input.name);
+    // localStorage.setItem("Level", input.level);
 
 })
 
@@ -37,8 +37,8 @@ play.addEventListener('click', () => {
 const scoreButton = document.querySelector('#highScore-btn')
 scoreButton.addEventListener('click', () => {
 
-	gamePage.classList.add('invisible')
-	highScorePage.classList.remove('invisible')
+    gamePage.classList.add('invisible')
+    highScorePage.classList.remove('invisible')
 
 })
 
@@ -47,18 +47,16 @@ scoreButton.addEventListener('click', () => {
 const backToGame = document.querySelector('#backToGameBtn')
 backToGame.addEventListener('click', () => {
 
-	highScorePage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
+    highScorePage.classList.add('invisible')
+    gamePage.classList.remove('invisible')
 
 })
 
 
 
 
-// Gubben
-const svgElement = document.querySelector('.gubbe svg');
 
-// Gubbens kroppsdelar
+const svgElement = document.querySelector('.gubbe svg');
 const ground = svgElement.querySelector('#ground');
 const scaffold = svgElement.querySelector('#scaffold');
 const head = svgElement.querySelector('#head');
@@ -74,7 +72,6 @@ let currentIndex = 0; // Håller reda på vilken del som visas näst
 parts.forEach(part => part.classList.add('invisible'));
 
 // Varje klick lägger till en kroppsdel
-const killBtn = document.querySelector('#kill-btn')
 killBtn.addEventListener('click', () => {
 
     // Visa nuvarande del
@@ -87,35 +84,4 @@ killBtn.addEventListener('click', () => {
         parts.forEach(part => part.classList.add('invisible'));
         currentIndex = 0;
     }
-});
-
-document.addEventListener('keydown', function(event) {
-    // Konvertera tryckt tangent till stor bokstav
-    const key = event.key.toUpperCase();
-
-    // Hitta div som matchar den tryckta tangenten
-    const keyDiv = document.querySelector(`div[data-key="${key}"]`);
-    if (keyDiv) {
-        keyDiv.classList.add('clicked-btn'); // Lägg till en klass för att indikera aktivering
-
-
-
-        // Kör din funktion här
-
-
-
-
-
-
-        console.log(key + " tangenten trycktes och funktionen aktiverades.");
-    }
-});
-
-
-
-const LetterButtons = document.querySelectorAll("div.key-container div[data-key]")
-LetterButtons.forEach((key)=>{
-  key.addEventListener("click",()=>{
-    guess(key.dataset.key)
-  })
 });
