@@ -12,7 +12,8 @@ import words from "./svenska-ord.js";
 
 const difficultyRadios = document.querySelectorAll('input[name="level"]');
 const guessInput = document.getElementById('guess');
-const letterButtons = document.querySelectorAll("div.key-container div[data-key]");
+const letterButtons = document.querySelectorAll(".key-container [data-key]");
+console.log('letterbuttons is ', letterButtons);
 const wordDisplay = document.getElementById('wordDisplay');
 
 let chosenWord;
@@ -24,6 +25,7 @@ const maxWrongGuesses = 6;
 function updateWord(event) {
 	const selectedDifficulty = event.target.value;
 	chosenWord = chooseWord(words, selectedDifficulty).toUpperCase();
+	console.log('Cheat mode - ta bort innan publiuceriung!! ', chosenWord);
 	wordState = "_".repeat(chosenWord.length);
 	guessedLetters = [];
 	wrongGuesses = 0;
@@ -44,10 +46,11 @@ function chooseWord(words, difficulty) {
 }
 
 function guess(guessedLetter) {
-	if (guessedLetter.length === 1 && /^[a-zA-Z]$/.test(guessedLetter)) {
+	console.log('Guess: ', guessedLetter);
+	if (guessedLetter.length === 1 && /^[a-zåäö A-ZÅÄÖ]$/.test(guessedLetter)) {
 		guessLetter(guessedLetter.toUpperCase());
 }
-
+}
 	function guessLetter(letter) {
 		if (guessedLetters.includes(letter)) {
 			return;
@@ -87,14 +90,15 @@ difficultyRadios.forEach(radio => {
 	radio.addEventListener("change", updateWord);
 });
 
-guessInput.addEventListener('keydown', (event) => {
+/*guessInput.addEventListener('keydown', (event) => {
 	if (event.key === 'Enter') {
 		guess(guessInput.value.toLowerCase());
 		guessInput.value = '';
 	}
 });
-
+*/
 letterButtons.forEach((key) => {
+	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
 		guess(key.dataset.key.toLowerCase());
 	});
@@ -123,4 +127,4 @@ let currentIndex = 0;
 parts.forEach(part => part.classList.add('invisible'));
 
 
-}
+
