@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="keyboard.css">
     <link rel="stylesheet" href="highscore.css">
     <!-- <script src="wordselect.js" type="module" defer></script> -->
-	<script src="script.js" type="module" defer></script>
+	<!-- <script src="script.js" type="module" defer></script> -->
     <script src="newCode.js" type="module" defer></script>
 
 
@@ -32,9 +32,10 @@
 <div class="user-container">
 
 
+
 	<div>
         <label for="userInput">
-			<input type="text" name="username" id="userInput" placeholder="username" required>
+			<input type="text" name="user" id="userInput" placeholder="username" required>
 		</label>
 	</div>
 
@@ -45,7 +46,8 @@
 			<h2>Välj nivå</h2>
 		</div>
 
-		<input type="radio" id="easy" name="level" value="easy" />
+
+		<input type="radio" id="easy" name="level" value="easy" checked />
         <label for="easy">Easy</label>
 
         <input type="radio" id="medium" name="level" value="medium" />
@@ -55,8 +57,9 @@
         <label for="hard">Hard</label>
     </div>
 
-
 	<button class="play-button" id="play-btn">Play</button>
+
+
 
 </section>
 
@@ -126,8 +129,6 @@
                 </div>
 
             </div>
-
-<button id="kill-btn"> Press to kill</button>
 
 </section>
 

@@ -11,7 +11,7 @@ const backToGame = document.querySelector('#backToGameBtn');
 import words from "./svenska-ord.js";
 
 const difficultyRadios = document.querySelectorAll('input[name="level"]');
-const guessInput = document.getElementById('guess');
+const guessInput = document.getElementById('guess'); // bör undersökas
 const letterButtons = document.querySelectorAll(".key-container [data-key]");
 console.log('letterbuttons is ', letterButtons);
 const wordDisplay = document.getElementById('wordDisplay');
@@ -49,36 +49,37 @@ function guess(guessedLetter) {
 	console.log('Guess: ', guessedLetter);
 	if (guessedLetter.length === 1 && /^[a-zåäö A-ZÅÄÖ]$/.test(guessedLetter)) {
 		guessLetter(guessedLetter.toUpperCase());
+	}
 }
-}
-	function guessLetter(letter) {
-		if (guessedLetters.includes(letter)) {
-			return;
+function guessLetter(letter) {
+	if (guessedLetters.includes(letter)) {
+		return;
+	}
+	guessedLetters.push(letter);
+
+	if (chosenWord.includes(letter)) {
+		let newWordState = "";
+		for (let i = 0; i < chosenWord.length; i++) {
+			newWordState += chosenWord[i] === letter ? letter : wordState[i];
 		}
-		guessedLetters.push(letter);
+		wordState = newWordState;
+	} else {
+		wrongGuesses++;
+		// Visa en del av gubben för varje felaktig gissning
+		if (wrongGuesses <= parts.length) {
+			parts[wrongGuesses - 1].classList.remove('invisible');
 
-		if (chosenWord.includes(letter)) {
-			let newWordState = "";
-			for (let i = 0; i < chosenWord.length; i++) {
-				newWordState += chosenWord[i] === letter ? letter : wordState[i];
-			}
-			wordState = newWordState;
-		} else {
-			wrongGuesses++;
-			// Visa en del av gubben för varje felaktig gissning
-			if (wrongGuesses <= parts.length) {
-				parts[wrongGuesses - 1].classList.remove('invisible');
-			}
-		}
-
-		updateWordDisplay();
-
-		if (wrongGuesses === maxWrongGuesses) {
-			console.log("You lose!");
-		} else if (!wordState.includes("_")) {
-			console.log("You win!");
 		}
 	}
+
+	updateWordDisplay();
+
+	if (wrongGuesses === maxWrongGuesses) {
+		console.log("You lose!");
+	} else if (!wordState.includes("_")) {
+		console.log("You win!");
+	}
+}
 
 
 function updateWordDisplay() {
@@ -90,17 +91,19 @@ difficultyRadios.forEach(radio => {
 	radio.addEventListener("change", updateWord);
 });
 
-/*guessInput.addEventListener('keydown', (event) => {
-	if (event.key === 'Enter') {
-		guess(guessInput.value.toLowerCase());
-		guessInput.value = '';
-	}
-});
-*/
+//Event listener för att använda tangenter
+// guessInput.addEventListener('keydown', (event) => {
+// 	if (event.key === 'Enter') {
+// 		guess(guessInput.value.toLowerCase());
+// 		guessInput.value = '';
+// 	}
+// });
+
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
 		guess(key.dataset.key.toLowerCase());
+		// letterButtons.classList.add("clicked") // GRÅ KNAPP
 	});
 });
 
