@@ -164,7 +164,13 @@ function chickenShit() {
 	}, [])
 	if (unGuessed.length > 0) {
 		const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
-		wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
+		const theLetter = chosenWord[randomIndex];
+		for (let i = 0; i < chosenWord.length; i++){
+			if (chosenWord[i] === theLetter) {
+				wordState = wordState.substring(0, i) + theLetter + wordState.substring(i + 1);
+			}
+		}
+		// wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
 		updateWordDisplay()
 		checkForWin()
 		hintClicks++;
