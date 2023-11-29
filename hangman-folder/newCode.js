@@ -68,7 +68,6 @@ function guessLetter(letter) {
 		// Visa en del av gubben för varje felaktig gissning
 		if (wrongGuesses <= parts.length) {
 			parts[wrongGuesses - 1].classList.remove('invisible');
-
 		}
 	}
 
@@ -76,8 +75,13 @@ function guessLetter(letter) {
 
 	if (wrongGuesses === maxWrongGuesses) {
 		console.log("You lose!");
+		//function reset game här
+		// Skriv ut på sidan "du förlorade"
+
 	} else if (!wordState.includes("_")) {
 		console.log("You win!");
+		// Skriv ut på sidan "du vann"
+		//Spara highscore om det är mer poäng än tidigare spelare, om inget highscore finns så lägg in i listan.
 	}
 }
 
