@@ -95,14 +95,6 @@ difficultyRadios.forEach(radio => {
 	radio.addEventListener("change", updateWord);
 });
 
-//  funktion för att hantera gissningarna
-function letterHandler(letter) {
-	guess(letter);
-	const keyElement = document.querySelector(`[data-key="${letter}"]`)
-	if (keyElement) {
-		keyElement.classList.add("clicked")
-	}
-}
 // Event listener för att använda tangenter
 
 document.addEventListener('keydown', (event) => {
@@ -111,7 +103,7 @@ document.addEventListener('keydown', (event) => {
 	}
 	const pressedKey = event.key.toLowerCase();
 	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)){
-		letterHandler(pressedKey);
+		guess(pressedKey);
 		const keyElement = document.querySelector(`[data-key="${pressedKey.toUpperCase()}"]`)
 		if (keyElement) {
 			keyElement.classList.add("clicked");
@@ -122,7 +114,7 @@ document.addEventListener('keydown', (event) => {
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
-		letterHandler(key.dataset.key.toLowerCase());
+		guess(key.dataset.key.toLowerCase());
 		key.classList.add("clicked")
 	});
 });
