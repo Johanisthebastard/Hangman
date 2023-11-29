@@ -95,7 +95,7 @@ difficultyRadios.forEach(radio => {
 	radio.addEventListener("change", updateWord);
 });
 
-// Event listener för att använda tangenter
+//  funktion för att hantera gissningarna
 function letterHandler(letter) {
 	guess(letter);
 	const keyElement = document.querySelector(`[data-key="${letter}"]`)
@@ -103,6 +103,7 @@ function letterHandler(letter) {
 		keyElement.classList.add("clicked")
 	}
 }
+// Event listener för att använda tangenter
 
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
