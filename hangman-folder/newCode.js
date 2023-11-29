@@ -3,7 +3,7 @@ const startPage = document.querySelector('#startSection');
 const gamePage = document.querySelector('#gamePage');
 const highScorePage = document.querySelector('#highScorePage');
 const play = document.querySelector('#play-btn');
-const killBtn = document.querySelector('#kill-btn');
+const hintBtn = document.querySelector('#hint-btn');
 const scoreButton = document.querySelector('#highScore-btn');
 const backToGame = document.querySelector('#backToGameBtn');
 
@@ -16,6 +16,7 @@ const letterButtons = document.querySelectorAll(".key-container [data-key]");
 console.log('letterbuttons is ', letterButtons);
 const wordDisplay = document.getElementById('wordDisplay');
 
+let hint = 0;
 let chosenWord;
 let wordState;
 let guessedLetters = [];
@@ -81,6 +82,7 @@ function guessLetter(letter) {
 	} else if (!wordState.includes("_")) {
 		console.log("You win!");
 		// Skriv ut på sidan "du vann"
+		//append innerText in a div
 		//Spara highscore om det är mer poäng än tidigare spelare, om inget highscore finns så lägg in i listan.
 	}
 }
@@ -99,10 +101,11 @@ difficultyRadios.forEach(radio => {
 
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
+
 		return;
 	}
 	const pressedKey = event.key.toLowerCase();
-	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)){
+	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)) {
 		guess(pressedKey);
 		const keyElement = document.querySelector(`[data-key="${pressedKey.toUpperCase()}"]`)
 		if (keyElement) {
@@ -144,3 +147,26 @@ const parts = [ground, scaffold, head, body, arms, legs];
 let currentIndex = 0;
 
 parts.forEach(part => part.classList.add('invisible'));
+
+// Hint
+hintBtn.addEventListener('click', () => {
+	chickenShit()
+	console.log(`Knappen har klickats ${hint} gånger`);
+});
+
+let hintClicks = 0;
+function chickenShit() {
+	const unGuessed = wordState.split("").reduce((acc, letter, index) => {
+		if (letter === "_") {
+			acc.push(index)
+		}
+		return acc
+	}, [])
+	if (unGuessed.length > 0) {
+		const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
+		wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
+		updateWordDisplay()
+		checkForWin()
+		hintClicks++;
+	}
+}
