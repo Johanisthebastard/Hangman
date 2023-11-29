@@ -95,13 +95,16 @@ difficultyRadios.forEach(radio => {
 	radio.addEventListener("change", updateWord);
 });
 
-//Event listener för att använda tangenter
-// guessInput.addEventListener('keydown', (event) => {
-// 	if (event.key === 'Enter') {
-// 		guess(guessInput.value.toLowerCase());
-// 		guessInput.value = '';
-// 	}
-// });
+// Event listener för att använda tangenter
+document.addEventListener('keydown', (event) => {
+	if (gamePage.classList.contains("invisible")) {
+		return;
+	}
+	const pressedKey = event.key.toLowerCase();
+	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)){
+		guess(pressedKey);
+	}
+});
 
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');

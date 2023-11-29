@@ -78,6 +78,11 @@ body{
 
 }
 
+.guesses{
+	display: flex;
+	flex-direction: column;
+}
+
 
 /*
 .gamePageHide{
