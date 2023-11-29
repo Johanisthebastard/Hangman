@@ -144,6 +144,3 @@ const parts = [ground, scaffold, head, body, arms, legs];
 let currentIndex = 0;
 
 parts.forEach(part => part.classList.add('invisible'));
-
-
-
