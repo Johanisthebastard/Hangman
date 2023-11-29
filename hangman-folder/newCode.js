@@ -103,9 +103,13 @@ letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
 		guess(key.dataset.key.toLowerCase());
-		// letterButtons.classList.add("clicked") // GRÅ KNAPP
+		key.classList.add("clicked")
 	});
 });
+
+// guess.forEach((clickedButton) =>{
+
+// })
 
 
 // Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
