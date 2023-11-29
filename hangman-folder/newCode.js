@@ -96,22 +96,32 @@ difficultyRadios.forEach(radio => {
 });
 
 // Event listener för att använda tangenter
+function letterHandler(letter) {
+	guess(letter);
+	const keyElement = document.querySelector(`[data-key="${letter}"]`)
+	if (keyElement) {
+		keyElement.classList.add("clicked")
+	}
+}
+
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
-		
 		return;
 	}
 	const pressedKey = event.key.toLowerCase();
 	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)){
-		guess(pressedKey);
-
+		letterHandler(pressedKey);
+		const keyElement = document.querySelector(`[data-key="${pressedKey.toUpperCase()}"]`)
+		if (keyElement) {
+			keyElement.classList.add("clicked");
+		}
 	}
 });
 
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
-		guess(key.dataset.key.toLowerCase());
+		letterHandler(key.dataset.key.toLowerCase());
 		key.classList.add("clicked")
 	});
 });
