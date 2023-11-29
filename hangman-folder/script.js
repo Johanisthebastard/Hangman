@@ -20,37 +20,42 @@ const play = document.querySelector('#play-btn')
 
 
 // const gubbe = document.querySelector('.gubbe')
-let hangWord = "" ;
+let hangWord = "";
 play.addEventListener('click', () => {
-    startPage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
-    const userName = document.querySelector("#userInput").value
-    let difficulty = "";
-    document.querySelectorAll(`input[name="level"]`).forEach(input => {
-        if (input.checked) {
-            difficulty = input.value
+    try {
+        startPage.classList.add('invisible')
+        gamePage.classList.remove('invisible')
+        const userName = document.querySelector("#userInput").value;
+        let difficulty = "";
+        document.querySelectorAll(`input[name="level"]`).forEach(input => {
+            if (input.checked) {
+                difficulty = input.value;
+            }
+        })
+        const theDateData = new Date()
+        const userHighscore = {
+            name: userName,
+            date: theDateData,
+            difficulty: difficulty,
+            score: 0,
+            hints: false
         }
-    })
-    const theDateData = new Date()
-    const userHighscore = {
-        name: userName,
-        date: theDateData,
-        difficulty: difficulty,
-        score: 0,
-        hints: false
-    }
-    if (difficulty === "easy") {
-        hangWord = easyPeasy(words)
-    }
-    else if (difficulty === "medium") {
-        hangWord = mediumSquezy(words)
-    }
-    else if (difficulty === "hard") {
-        hangWord = hardyParty(words)
-    }
-	//Osäker på dessa men en skiss
-	// localStorage.setItem("Name", input.name);
-	// localStorage.setItem("Level", input.level);
+        if (difficulty === "easy") {
+            hangWord = easyPeasy(words)
+        }
+        else if (difficulty === "medium") {
+            hangWord = mediumSquezy(words)
+        }
+        else if (difficulty === "hard") {
+            hangWord = hardyParty(words)
+        }
+    } 
+     catch (error) {
+        console.error("Something unexpected just happened, try reloading the page!")
+     }
+        //Osäker på dessa men en skiss
+        // localStorage.setItem("Name", input.name);
+        // localStorage.setItem("Level", input.level);
 
 })
 
@@ -59,8 +64,8 @@ play.addEventListener('click', () => {
 const scoreButton = document.querySelector('#highScore-btn')
 scoreButton.addEventListener('click', () => {
 
-	gamePage.classList.add('invisible')
-	highScorePage.classList.remove('invisible')
+    gamePage.classList.add('invisible')
+    highScorePage.classList.remove('invisible')
 
 })
 
@@ -69,8 +74,8 @@ scoreButton.addEventListener('click', () => {
 const backToGame = document.querySelector('#backToGameBtn')
 backToGame.addEventListener('click', () => {
 
-	highScorePage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
+    highScorePage.classList.add('invisible')
+    gamePage.classList.remove('invisible')
 
 })
 
