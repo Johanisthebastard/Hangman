@@ -98,11 +98,13 @@ difficultyRadios.forEach(radio => {
 // Event listener för att använda tangenter
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
+		
 		return;
 	}
 	const pressedKey = event.key.toLowerCase();
 	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)){
 		guess(pressedKey);
+
 	}
 });
 

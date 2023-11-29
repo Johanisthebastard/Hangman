@@ -24,6 +24,9 @@ body{
 
 }
 
+main{
+
+}
 
 .user-container{
 	display: grid;
@@ -92,3 +95,9 @@ body{
 .gamePageShow{
 	display: block;
 } */
+
+
+@media (750px) {
+
+
+}

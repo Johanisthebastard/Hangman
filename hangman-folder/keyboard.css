@@ -31,3 +31,44 @@
 .clicked{
   background: grey;
 }
+
+/* Media Query för skärmar mindre än 760px */
+@media screen and (max-width: 760px) {
+    .row1, .row2, .row3 {
+        width: 40em; /* Justera bredden */
+        height: 3em;
+    }
+    .row1 > *, .row2 > *, .row3 > * {
+        width: 1.8em;
+        height: 1.8em;
+        font-size: 20px; /* Minska textstorleken */
+    }
+}
+
+/* Media Query för skärmar mindre än 470px */
+@media screen and (max-width: 520px) {
+    .row1, .row2, .row3 {
+        width: 30em; /* Minska ytterligare */
+        height: 2.5em;
+    }
+    .row1 > *, .row2 > *, .row3 > * {
+        width: 1.5em;
+        height: 1.5em;
+        font-size: 18px; /* Minska textstorleken ännu mer */
+        padding: 0.8em; /* Justera padding */
+    }
+}
+
+@media screen and (max-width: 385px) {
+    .row1, .row2, .row3 {
+        width: 100%; /* Använd hela skärmens bredd */
+        height: 2em;
+    }
+    .row1 > *, .row2 > *, .row3 > * {
+        width: 1.2em;
+        height: 1.2em;
+        font-size: 16px; /* Minska textstorleken ytterligare */
+        padding: 0.6em; /* Minska padding */
+        margin: 0.15em; /* Minska marginalerna */
+    }
+}
