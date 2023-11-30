@@ -24,7 +24,12 @@ let wrongGuesses = 0;
 const maxWrongGuesses = 6;
 
 function updateWord(event) {
-	const selectedDifficulty = event.target.value;
+	const levels = document.querySelectorAll('input[name="level"]');
+	let selectedDifficulty = null
+	levels.forEach((level) => {
+		if (level.checked) selectedDifficulty = level.value
+
+	})
 	chosenWord = chooseWord(words, selectedDifficulty).toUpperCase();
 	console.log('Cheat mode - ta bort innan publiuceriung!! ', chosenWord);
 	wordState = "_".repeat(chosenWord.length);
@@ -52,6 +57,7 @@ function guess(guessedLetter) {
 		guessLetter(guessedLetter.toUpperCase());
 	}
 }
+
 function guessLetter(letter) {
 	if (guessedLetters.includes(letter)) {
 		return;
@@ -76,16 +82,30 @@ function guessLetter(letter) {
 
 	if (wrongGuesses === maxWrongGuesses) {
 		console.log("You lose!");
-		//function reset game här
-		// Skriv ut på sidan "du förlorade"
-
+		// Show the game result modal with "Du förlorade"
+		document.getElementById('resultText').innerText = 'Du förlorade';
+		document.getElementById('gameResult').style.display = 'block';
 	} else if (!wordState.includes("_")) {
 		console.log("You win!");
-		// Skriv ut på sidan "du vann"
-		//append innerText in a div
-		//Spara highscore om det är mer poäng än tidigare spelare, om inget highscore finns så lägg in i listan.
+		// Show the game result modal with "Du vann"
+		document.getElementById('resultText').innerText = 'Du vann';
+		document.getElementById('gameResult').style.display = 'block';
 	}
+
+	// Function to close the modal
+
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+		const closeButton = document.getElementById('close-btn');
+		if (closeButton) {
+			closeButton.addEventListener('click', () => {
+				document.getElementById('gameResult').style.display = 'none';
+				switchPage()
+				resetGame()
+			});
+		}
+	});
 
 
 function updateWordDisplay() {
@@ -129,8 +149,7 @@ letterButtons.forEach((key) => {
 
 // Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
 play.addEventListener('click', () => {
-	startPage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
+	switchPage()
 });
 
 scoreButton.addEventListener('click', () => {
@@ -175,4 +194,17 @@ function chickenShit() {
 		checkForWin()
 		hintClicks++;
 	}
+}
+
+function switchPage() {
+	startPage.classList.toggle('invisible')
+	gamePage.classList.toggle('invisible')
+}
+
+
+function resetGame(){
+
+	updateWord()
+	hint = 0;
+
 }
