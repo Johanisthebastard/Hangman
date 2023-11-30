@@ -182,7 +182,6 @@ letterButtons.forEach((key) => {
 		gamePage.classList.add('invisible')
 		highScorePage.classList.remove('invisible')
 		displayGameResults()
-
 	});
 
 	backToGame.addEventListener('click', () => {
@@ -285,3 +284,18 @@ function displayGameResults(sortByDate) {
 }
 
 displayGameResults(false)
+
+
+
+// TOGGLE VIEWS (från david)
+play.addEventListener('click', showPlayView)
+
+function hideViews() {
+	allTheViews.forEach(view => {
+		view.classList.add('invisible')
+	})
+}
+function showPlayView() {
+	hideViews()
+	gamePage.classList.remove('invisible')
+}
