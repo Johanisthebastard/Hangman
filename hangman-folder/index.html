@@ -146,60 +146,32 @@
 
 
 <!---- HIGH SCORE ----->
+<!---- HIGH SCORE ----->
 <section class="invisible" id="highScorePage">
 
 	<button class="backToGame-button" id="backToGameBtn">Back to Game</button>
 
-    <div class="highScore-container">
-         <table>
+	<div class="highScore-container">
 
-            <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Length</th>
-                <th scope="col">Guesses</th>
-                <th scope="col">Date</th>
-                <th scope="col">Result</th>
-            </tr>
-            <tr>
-                <th scope="row">${user.data}</th>
-                <td>7</td>
-                <td>13</td>
-                <td>4,569</td>
-                <td>4,569</td>
-            </tr>
-               <tr>
-                <th scope="row">${user.data}</th>
-                <td>7</td>
-                <td>13</td>
-                <td>4,569</td>
-                <td>4,569</td>
-            </tr>
-              <tr>
-                <th scope="row">${user.data}</th>
-                <td>7</td>
-                <td>13</td>
-                <td>4,569</td>
-                <td>4,569</td>
-            </tr>
+		<div class="highScore-container">
+			<table id="gameResultsTable">
+				<thead>
+					<tr>
+						<th scope="col">Player</th>
+						<th scope="col">Length</th>
+						<th scope="col">Guesses</th>
+						<th scope="col">Date</th>
+						<th scope="col">Result</th>
+						<th scope="col">Hint</th>
+					</tr>
+				</thead>
+				<tbody id="gameResultsBody" class="gameResult-container">
 
-               <tr>
-                <th scope="row">${user.data}</th>
-                <td>7</td>
-                <td>13</td>
-                <td>4,569</td>
-                <td>4,569</td>
-            </tr>
+				</tbody>
+			</table>
+		</div>
 
-               <tr>
-                <th scope="row">${user.data}</th>
-                <td>7</td>
-                <td>13</td>
-                <td>4,569</td>
-                <td>4,569</td>
-            </tr>
-</table>
-
-    </div>
+	</div>
 
 </section>
 </main>
