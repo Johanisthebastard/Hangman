@@ -6,6 +6,7 @@ const play = document.querySelector('#play-btn');
 const hintBtn = document.querySelector('#hint-btn');
 const scoreButton = document.querySelector('#highScore-btn');
 const backToGame = document.querySelector('#backToGameBtn');
+let playerName
 
 // Koden för ordgissningsspelet
 import words from "./svenska-ord.js";
@@ -82,37 +83,53 @@ function guessLetter(letter) {
 			parts[wrongGuesses - 1].classList.remove('invisible');
 		}
 	}
-	
+
 	updateWordDisplay();
-	
+	console.log('Nu sparar vi!', playerName, wordLength, wrongGuesses, gameDate, gameWon );
+
+
 	if (wrongGuesses === maxWrongGuesses) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
 		document.getElementById('resultText').innerText = 'Du förlorade';
 		document.getElementById('gameResult').style.display = 'block';
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	} else if (!wordState.includes("_")) {
 		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
 		document.getElementById('resultText').innerText = 'Du vann';
 		document.getElementById('gameResult').style.display = 'block';
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	}
 
 	// Function to close the modal
 
-}
+} // SPELET SLUTAR
 
+//CLOSE PAGE & RESET GAME
 document.addEventListener('DOMContentLoaded', () => {
-		const closeButton = document.getElementById('close-btn');
-		if (closeButton) {
-			closeButton.addEventListener('click', () => {
+		const resetButton = document.getElementById('reset-btn');
+		if (resetButton) {
+			resetButton.addEventListener('click', () => {
 				document.getElementById('gameResult').style.display = 'none';
 				switchPage()
 				resetGame()
 			});
 		}
 	});
+
+// CLOSE ONLY
+document.addEventListener('DOMContentLoaded', () => {
+	const closeButton = document.getElementById('close-btn');
+	if (closeButton) {
+		closeButton.addEventListener('click', () => {
+			document.getElementById('gameResult').style.display = 'none';
+		});
+	}
+});
+
 
 
 function updateWordDisplay() {
@@ -128,7 +145,7 @@ difficultyRadios.forEach(radio => {
 
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
-		
+
 		return;
 	}
 	const pressedKey = event.key.toLowerCase();
@@ -150,38 +167,40 @@ letterButtons.forEach((key) => {
 });
 
 // guess.forEach((clickedButton) =>{
-	
+
 	// })
-	
-	
+
+
 	// Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
 	play.addEventListener('click', () => {
 		switchPage()
 		playerName = document.getElementById('userInput').value,
 		gameDate = new Date()
 	});
-	
+
 	scoreButton.addEventListener('click', () => {
 		gamePage.classList.add('invisible')
 		highScorePage.classList.remove('invisible')
+		displayGameResults()
+
 	});
-	
+
 	backToGame.addEventListener('click', () => {
 		highScorePage.classList.add('invisible')
 		gamePage.classList.remove('invisible')
 	});
-	
+
 	const parts = [ground, scaffold, head, body, arms, legs];
 	let currentIndex = 0;
-	
+
 	parts.forEach(part => part.classList.add('invisible'));
-	
+
 	// Hint
 	hintBtn.addEventListener('click', () => {
 		chickenShit()
 		console.log(`Knappen har klickats ${hint} gånger`);
 	});
-	
+
 	let hintClicks = 0;
 	function chickenShit() {
 		const unGuessed = wordState.split("").reduce((acc, letter, index) => {
@@ -204,24 +223,65 @@ letterButtons.forEach((key) => {
 			hintClicks++;
 		}
 	}
-	
+
 	function switchPage() {
 		startPage.classList.toggle('invisible')
 		gamePage.classList.toggle('invisible')
 	}
-	
-	
+
+
 	function resetGame(){
 		resetKeyboardAppearance()
 		updateWord()
 		hint = 0;
-		
+
 	}
-	
+
 	function resetKeyboardAppearance() {
 		letterButtons.forEach((key) => {
 			key.classList.remove("clicked");
 		});
 	}
-	
- 
+
+
+	/// HIIIIIIIGH SCOOOOOORE
+
+
+// function för att spara highscore till local storage
+function saveGameResult(username, wordLength, wrongGuesses, date, won) {
+	const gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
+	gameResults.push({ username, wordLength, wrongGuesses, date, won });
+	gameResults.sort((a, b) => {
+		if (a.wrongGuesses !== b.wrongGuesses) {
+			return a.wrongGuesses - b.wrongGuesses;
+		} else {
+			return new Date(b.date) - new Date(a.date);
+		}
+	})
+	console.log('gameResults', gameResults);
+	localStorage.setItem('gameResults', JSON.stringify(gameResults));
+}
+// function för att visa game result på poängvyn
+function displayGameResults(sortByDate) {
+	const gameResultContainer = document.querySelector('.gameResult-container')
+	const gameResults = JSON.parse(localStorage.getItem('gameResults')) || []
+	gameResultContainer.innerHTML = '';
+
+	if (sortByDate) {
+		gameResults.sort((a, b) => new Date(b.date) - new Date(a.date))
+
+	}
+	gameResults.forEach((entry, index) => {
+		const tableRow = document.createElement('tr')
+		tableRow.innerHTML = `
+    <th scope="row">${entry.username}</th>
+    <td>${entry.wordLength}</td>
+    <td>${entry.wrongGuesses}</td>
+   <td>${new Date(entry.date).toLocaleString()}</td>
+    <td>${entry.won ? 'Won' : 'Lost'}</td>
+`;
+		gameResultContainer.appendChild(tableRow)
+	})
+}
+
+displayGameResults(false)
