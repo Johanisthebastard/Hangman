@@ -203,8 +203,14 @@ function switchPage() {
 
 
 function resetGame(){
-
+	resetKeyboardAppearance()
 	updateWord()
 	hint = 0;
 
 }
+
+function resetKeyboardAppearance() {
+	letterButtons.forEach((key) => {
+	  key.classList.remove("clicked");
+	});
+  }
