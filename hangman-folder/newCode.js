@@ -21,6 +21,9 @@ let chosenWord;
 let wordState;
 let guessedLetters = [];
 let wrongGuesses = 0;
+let gameWon ;
+let gameDate ;
+let wordLength ;
 const maxWrongGuesses = 6;
 
 function updateWord(event) {
@@ -29,12 +32,14 @@ function updateWord(event) {
 	levels.forEach((level) => {
 		if (level.checked) selectedDifficulty = level.value
 
+
 	})
 	chosenWord = chooseWord(words, selectedDifficulty).toUpperCase();
 	console.log('Cheat mode - ta bort innan publiuceriung!! ', chosenWord);
 	wordState = "_".repeat(chosenWord.length);
 	guessedLetters = [];
 	wrongGuesses = 0;
+	wordLength = chosenWord.length;
 	updateWordDisplay();
 }
 
@@ -77,15 +82,17 @@ function guessLetter(letter) {
 			parts[wrongGuesses - 1].classList.remove('invisible');
 		}
 	}
-
+	
 	updateWordDisplay();
-
+	
 	if (wrongGuesses === maxWrongGuesses) {
+		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
 		document.getElementById('resultText').innerText = 'Du förlorade';
 		document.getElementById('gameResult').style.display = 'block';
 	} else if (!wordState.includes("_")) {
+		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
 		document.getElementById('resultText').innerText = 'Du vann';
@@ -121,7 +128,7 @@ difficultyRadios.forEach(radio => {
 
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
-
+		
 		return;
 	}
 	const pressedKey = event.key.toLowerCase();
@@ -143,74 +150,78 @@ letterButtons.forEach((key) => {
 });
 
 // guess.forEach((clickedButton) =>{
-
-// })
-
-
-// Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
-play.addEventListener('click', () => {
-	switchPage()
-});
-
-scoreButton.addEventListener('click', () => {
-	gamePage.classList.add('invisible')
-	highScorePage.classList.remove('invisible')
-});
-
-backToGame.addEventListener('click', () => {
-	highScorePage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
-});
-
-const parts = [ground, scaffold, head, body, arms, legs];
-let currentIndex = 0;
-
-parts.forEach(part => part.classList.add('invisible'));
-
-// Hint
-hintBtn.addEventListener('click', () => {
-	chickenShit()
-	console.log(`Knappen har klickats ${hint} gånger`);
-});
-
-let hintClicks = 0;
-function chickenShit() {
-	const unGuessed = wordState.split("").reduce((acc, letter, index) => {
-		if (letter === "_") {
-			acc.push(index)
-		}
-		return acc
-	}, [])
-	if (unGuessed.length > 0) {
-		const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
-		const theLetter = chosenWord[randomIndex];
-		for (let i = 0; i < chosenWord.length; i++){
-			if (chosenWord[i] === theLetter) {
-				wordState = wordState.substring(0, i) + theLetter + wordState.substring(i + 1);
-			}
-		}
-		// wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
-		updateWordDisplay()
-		checkForWin()
-		hintClicks++;
-	}
-}
-
-function switchPage() {
-	startPage.classList.toggle('invisible')
-	gamePage.classList.toggle('invisible')
-}
-
-
-function resetGame(){
-	resetKeyboardAppearance()
-	updateWord()
-	hint = 0;
-
-}
-
-function resetKeyboardAppearance() {
-	letterButtons.forEach((key) => {
-	  key.classList.remove("clicked");
+	
+	// })
+	
+	
+	// Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
+	play.addEventListener('click', () => {
+		switchPage()
+		playerName = document.getElementById('userInput').value,
+		gameDate = new Date()
 	});
-  }
+	
+	scoreButton.addEventListener('click', () => {
+		gamePage.classList.add('invisible')
+		highScorePage.classList.remove('invisible')
+	});
+	
+	backToGame.addEventListener('click', () => {
+		highScorePage.classList.add('invisible')
+		gamePage.classList.remove('invisible')
+	});
+	
+	const parts = [ground, scaffold, head, body, arms, legs];
+	let currentIndex = 0;
+	
+	parts.forEach(part => part.classList.add('invisible'));
+	
+	// Hint
+	hintBtn.addEventListener('click', () => {
+		chickenShit()
+		console.log(`Knappen har klickats ${hint} gånger`);
+	});
+	
+	let hintClicks = 0;
+	function chickenShit() {
+		const unGuessed = wordState.split("").reduce((acc, letter, index) => {
+			if (letter === "_") {
+				acc.push(index)
+			}
+			return acc
+		}, [])
+		if (unGuessed.length > 0) {
+			const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
+			const theLetter = chosenWord[randomIndex];
+			for (let i = 0; i < chosenWord.length; i++){
+				if (chosenWord[i] === theLetter) {
+					wordState = wordState.substring(0, i) + theLetter + wordState.substring(i + 1);
+				}
+			}
+			// wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
+			updateWordDisplay()
+			checkForWin()
+			hintClicks++;
+		}
+	}
+	
+	function switchPage() {
+		startPage.classList.toggle('invisible')
+		gamePage.classList.toggle('invisible')
+	}
+	
+	
+	function resetGame(){
+		resetKeyboardAppearance()
+		updateWord()
+		hint = 0;
+		
+	}
+	
+	function resetKeyboardAppearance() {
+		letterButtons.forEach((key) => {
+			key.classList.remove("clicked");
+		});
+	}
+	
+ 
