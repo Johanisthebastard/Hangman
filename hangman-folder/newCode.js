@@ -92,14 +92,14 @@ function guessLetter(letter) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
-		document.getElementById('resultText').innerText = 'Du förlorade';
+		document.getElementById('resultText').innerText = 'Haha, Du förlorade!';
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	} else if (!wordState.includes("_")) {
 		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
-		document.getElementById('resultText').innerText = 'Du vann';
+		document.getElementById('resultText').innerText = 'Du vann LOL!';
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	}
