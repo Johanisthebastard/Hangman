@@ -3,7 +3,7 @@ const startPage = document.querySelector('#startSection');
 const gamePage = document.querySelector('#gamePage');
 const highScorePage = document.querySelector('#highScorePage');
 const play = document.querySelector('#play-btn');
-const killBtn = document.querySelector('#kill-btn');
+const hintBtn = document.querySelector('#hint-btn');
 const scoreButton = document.querySelector('#highScore-btn');
 const backToGame = document.querySelector('#backToGameBtn');
 let playerName
@@ -16,18 +16,26 @@ const letterButtons = document.querySelectorAll(".key-container [data-key]");
 console.log('letterbuttons is ', letterButtons);
 const wordDisplay = document.getElementById('wordDisplay');
 
-let gameWon
-let gameDate
-let wordLength
+let hintUsed = false;
+let hint = 0;
 let chosenWord;
 let wordState;
 let guessedLetters = [];
 let wrongGuesses = 0;
+let gameWon;
+let gameDate;
+let wordLength;
 const maxWrongGuesses = 6;
 
 //ändring har gjorts
 function updateWord(event) {
-	const selectedDifficulty = event.target.value;
+	const levels = document.querySelectorAll('input[name="level"]');
+	let selectedDifficulty = null
+	levels.forEach((level) => {
+		if (level.checked) selectedDifficulty = level.value
+
+
+	})
 	chosenWord = chooseWord(words, selectedDifficulty).toUpperCase();
 	console.log('Cheat mode - ta bort innan publiuceriung!! ', chosenWord);
 	wordState = "_".repeat(chosenWord.length);
@@ -56,6 +64,7 @@ function guess(guessedLetter) {
 		guessLetter(guessedLetter.toUpperCase());
 	}
 }
+
 function guessLetter(letter) {
 	if (guessedLetters.includes(letter)) {
 		return;
@@ -77,20 +86,51 @@ function guessLetter(letter) {
 	}
 	// ändring har gjorts 
 	updateWordDisplay();
+	console.log('Nu sparar vi!', playerName, wordLength, wrongGuesses, gameDate, gameWon);
+
 
 	if (wrongGuesses === maxWrongGuesses) {
-		console.log("You lose!");
 		gameWon = false;
-		//function reset game här
-		// Skriv ut på sidan "du förlorade"
-
+		console.log("You lose!");
+		// Show the game result modal with "Du förlorade"
+		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord
+		document.getElementById('gameResult').style.display = 'block';
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	} else if (!wordState.includes("_")) {
-		console.log("You win!");
 		gameWon = true;
-		// Skriv ut på sidan "du vann"
-		//Spara highscore om det är mer poäng än tidigare spelare, om inget highscore finns så lägg in i listan.
+		console.log("You win!");
+		// Show the game result modal with "Du vann"
+		document.getElementById('resultText').innerText = 'Du vann LOL!';
+		document.getElementById('gameResult').style.display = 'block';
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	}
-}
+
+	// Function to close the modal
+
+} // SPELET SLUTAR
+
+//CLOSE PAGE & RESET GAME
+document.addEventListener('DOMContentLoaded', () => {
+	const resetButton = document.getElementById('reset-btn');
+	if (resetButton) {
+		resetButton.addEventListener('click', () => {
+			document.getElementById('gameResult').style.display = 'none';
+			switchPage()
+			resetGame()
+		});
+	}
+});
+
+// CLOSE ONLY
+document.addEventListener('DOMContentLoaded', () => {
+	const closeButton = document.getElementById('close-btn');
+	if (closeButton) {
+		closeButton.addEventListener('click', () => {
+			document.getElementById('gameResult').style.display = 'none';
+		});
+	}
+});
+
 
 
 function updateWordDisplay() {
@@ -103,6 +143,7 @@ difficultyRadios.forEach(radio => {
 });
 
 // Event listener för att använda tangenter
+
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
 
@@ -111,9 +152,14 @@ document.addEventListener('keydown', (event) => {
 	const pressedKey = event.key.toLowerCase();
 	if (/^[a-zåäö]$/.test(pressedKey) && !guessedLetters.includes(pressedKey)) {
 		guess(pressedKey);
-
+		const keyElement = document.querySelector(`[data-key="${pressedKey.toUpperCase()}"]`)
+		if (keyElement) {
+			keyElement.classList.add("clicked");
+		}
 	}
 });
+
+
 
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
@@ -129,20 +175,23 @@ letterButtons.forEach((key) => {
 
 
 // Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
-// ändring har gjorts 
 play.addEventListener('click', () => {
+	const userReq = document.querySelector("#userInput").value;
+	if (!userReq) {
+		document.querySelector(".alertTheNerd").style.visibility = "visible";
+		return;
+	}
+	document.querySelector(".alertTheNerd").style.visibility = "hidden";
+	updateWord()
+	switchPage()
 	playerName = document.getElementById('userInput').value,
 		gameDate = new Date()
-	startPage.classList.add('invisible')
-	gamePage.classList.remove('invisible')
-
 });
-// ändring har gjorts 
+
 scoreButton.addEventListener('click', () => {
-	saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon);
-	displayGameResults(false);
 	gamePage.classList.add('invisible')
 	highScorePage.classList.remove('invisible')
+	displayGameResults()
 });
 
 backToGame.addEventListener('click', () => {
@@ -155,18 +204,86 @@ let currentIndex = 0;
 
 parts.forEach(part => part.classList.add('invisible'));
 
+// Hint
+hintBtn.addEventListener('click', () => {
+	chickenShit()
+	console.log(`Knappen har klickats ${hint} gånger`);
+
+});
+
+let hintClicks = 0;
+function chickenShit() {
+	const unGuessed = wordState.split("").reduce((acc, letter, index) => {
+		if (letter === "_") {
+			acc.push(index)
+		}
+		return acc
+	}, [])
+	if (unGuessed.length > 0) {
+		const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
+
+		const theLetter = chosenWord[randomIndex];
+		const keyElement = document.querySelector(`[data-key="${theLetter}"]`);
+		if (keyElement) {
+			keyElement.classList.add("clicked");
+		}
+		for (let i = 0; i < chosenWord.length; i++) {
+			if (chosenWord[i] === theLetter) {
+				wordState = wordState.substring(0, i) + theLetter + wordState.substring(i + 1);
+			}
+		}
+		// wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
+		updateWordDisplay()
+		//checkForWin()
+		hintClicks++;
+	}
+}
+
+function switchPage() {
+	startPage.classList.toggle('invisible')
+	gamePage.classList.toggle('invisible')
+}
+
+
+function resetGame() {
+	resetKeyboardAppearance()
+	updateWord()
+	hint = 0;
+
+}
+
+function resetKeyboardAppearance() {
+	letterButtons.forEach((key) => {
+		key.classList.remove("clicked");
+	});
+}
+
+
+/// HIIIIIIIGH SCOOOOOORE
+
 
 // function för att spara highscore till local storage
-function saveGameResult(username, wordLength, wrongGuesses, date, won) {
+function saveGameResult(username, wordLength, wrongGuesses, date, won, hintUsed) {
 	const gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
-	gameResults.push({ username, wordLength, wrongGuesses, date, won });
+	gameResults.push({
+		username, wordLength, wrongGuesses, date, won,
+		hintUsed: hintClicks > 0
+	});
 	gameResults.sort((a, b) => {
-		if (a.wrongGuesses !== b.wrongGuesses) {
-			return a.wrongGuesses - b.wrongGuesses;
-		} else {
-			return new Date(b.date) - new Date(a.date);
-		}
+		gameResults.sort((a, b) => {
+
+			if (a.wrongGuesses !== b.wrongGuesses) {
+				return a.wrongGuesses - b.wrongGuesses;
+			}
+
+			const dateComparison = new Date(b.date) - new Date(a.date);
+			if (dateComparison !== 0) {
+				return dateComparison;
+			}
+			return a.hintUsed && !b.hintUsed ? 1 : -1;
+		});
 	})
+	console.log('gameResults', gameResults);
 	localStorage.setItem('gameResults', JSON.stringify(gameResults));
 }
 // function för att visa game result på poängvyn
@@ -187,9 +304,28 @@ function displayGameResults(sortByDate) {
     <td>${entry.wrongGuesses}</td>
    <td>${new Date(entry.date).toLocaleString()}</td>
     <td>${entry.won ? 'Won' : 'Lost'}</td>
+	<td>${entry.hintUsed ? 'Used' : 'Not Used'}</td>
+
 `;
 		gameResultContainer.appendChild(tableRow)
+
+
 	})
 }
-saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+
 displayGameResults(false)
+
+
+
+// TOGGLE VIEWS (från david)
+play.addEventListener('click', showPlayView)
+
+function hideViews() {
+	allTheViews.forEach(view => {
+		view.classList.add('invisible')
+	})
+}
+function showPlayView() {
+	hideViews()
+	gamePage.classList.remove('invisible')
+}
