@@ -92,14 +92,15 @@ function guessLetter(letter) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
-		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord
+		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord, 'Du gissade', 'gånger'
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	} else if (!wordState.includes("_")) {
 		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
-		document.getElementById('resultText').innerText = 'Du vann LOL!';
+		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord, ' och du gissade', 'gånger';
+
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	}
@@ -126,6 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (closeButton) {
 		closeButton.addEventListener('click', () => {
 			document.getElementById('gameResult').style.display = 'none';
+			gamePage.classList.add('invisible')
+			highScorePage.classList.remove('invisible')
+			displayGameResults()
+
 		});
 	}
 });
@@ -136,13 +141,12 @@ function updateWordDisplay() {
 	wordDisplay.textContent = wordState.split('').join(' ');
 }
 
-// Eventlyssnare för att hantera spelet
+// Eventlyssnare för att hantera spelets nivå
 difficultyRadios.forEach(radio => {
 	radio.addEventListener("change", updateWord);
 });
 
 // Event listener för att använda tangenter
-
 document.addEventListener('keydown', (event) => {
 	if (gamePage.classList.contains("invisible")) {
 
@@ -159,7 +163,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 
-
+// ändrar css klass på tangenterna vid knapptryck
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
@@ -173,7 +177,7 @@ letterButtons.forEach((key) => {
 	// })
 
 
-	// Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
+	//
 	play.addEventListener('click', () => {
 		const userReq = document.querySelector("#userInput").value;
 		if (!userReq) {
@@ -187,23 +191,26 @@ letterButtons.forEach((key) => {
 		gameDate = new Date()
 	});
 
+//Knapp
 	scoreButton.addEventListener('click', () => {
 		gamePage.classList.add('invisible')
 		highScorePage.classList.remove('invisible')
 		displayGameResults()
 	});
-
+//Knapp
 	backToGame.addEventListener('click', () => {
 		highScorePage.classList.add('invisible')
-		gamePage.classList.remove('invisible')
+		startPage.classList.remove('invisible')
+		resetGame()
 	});
 
+//Kroppsdelar
 	const parts = [ground, scaffold, head, body, arms, legs];
 	let currentIndex = 0;
 
 	parts.forEach(part => part.classList.add('invisible'));
 
-	// Hint
+// HIIIIIIINTS
 	hintBtn.addEventListener('click', () => {
 		chickenShit()
 		console.log(`Knappen har klickats ${hint} gånger`);
@@ -231,7 +238,6 @@ letterButtons.forEach((key) => {
 					wordState = wordState.substring(0, i) + theLetter + wordState.substring(i + 1);
 				}
 			}
-			// wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
 			updateWordDisplay()
 			checkForWin()
 			hintClicks++;
