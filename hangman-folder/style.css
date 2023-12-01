@@ -36,6 +36,7 @@ main{
 	gap: 2em;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 
 }
 
@@ -165,4 +166,11 @@ main{
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.alertTheNerd {
+	visibility: hidden;
+	color: rgb(127, 3, 3);
+	font-weight: 900;
+	font-size: 1.3em;
 }

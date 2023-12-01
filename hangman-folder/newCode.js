@@ -173,9 +173,17 @@ letterButtons.forEach((key) => {
 
 	// Fortsättning av din befintliga kod för sidnavigering och hantering av gubbe
 	play.addEventListener('click', () => {
+		const userReq = document.querySelector("#userInput").value;
+		if (!userReq) {
+			document.querySelector(".alertTheNerd").style.visibility = "visible";
+			return;
+		}
+		document.querySelector(".alertTheNerd").style.visibility = "hidden";
+		updateWord()
 		switchPage()
 		playerName = document.getElementById('userInput').value,
 		gameDate = new Date()
+
 	});
 
 	scoreButton.addEventListener('click', () => {
