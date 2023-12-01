@@ -17,7 +17,7 @@ const letterButtons = document.querySelectorAll(".key-container [data-key]");
 console.log('letterbuttons is ', letterButtons);
 const wordDisplay = document.getElementById('wordDisplay');
 
-let hint = 0;
+let hints = 0;
 let chosenWord;
 let wordState;
 let guessedLetters = [];
@@ -217,7 +217,6 @@ letterButtons.forEach((key) => {
 
 	});
 
-	let hintClicks = 0;
 	function chickenShit() {
 		const unGuessed = wordState.split("").reduce((acc, letter, index) => {
 			if (letter === "_") {
@@ -240,7 +239,7 @@ letterButtons.forEach((key) => {
 			}
 			updateWordDisplay()
 			checkForWin()
-			hintClicks++;
+			hints++;
 		}
 	}
 
