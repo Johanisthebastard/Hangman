@@ -135,6 +135,7 @@ play.addEventListener('click', () => {
 		gameDate = new Date()
 	startPage.classList.add('invisible')
 	gamePage.classList.remove('invisible')
+
 });
 // ändring har gjorts 
 scoreButton.addEventListener('click', () => {
