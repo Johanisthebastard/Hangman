@@ -36,6 +36,7 @@ main{
 	gap: 2em;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 
 }
 
@@ -173,4 +174,11 @@ main{
 	border-radius: 5px;
 	background: #b91919;
 	color: white;
+}
+
+.alertTheNerd {
+	visibility: hidden;
+	color: rgb(127, 3, 3);
+	font-weight: 900;
+	font-size: 1.3em;
 }
