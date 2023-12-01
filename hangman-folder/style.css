@@ -36,6 +36,7 @@ main{
 	gap: 2em;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 
 }
 
@@ -186,6 +187,34 @@ main{
   .gameResult-container th {
 	background-color: #00a005b6;
 	color: white;
+}
+
+.alertTheNerd {
+	visibility: hidden;
+	color: rgb(127, 3, 3);
+	font-weight: 900;
+	font-size: 1.3em;
+}
+
+/*Highscorepagestyling*/
+
+.gameResult-container {
+	width: 100%;
+	margin-top: 20px;
+	
+	
+  }
+  
+  
+  .gameResult-container tr {
+	background-color: #01b3ffb4;
+	
+  }
+  
+
+  .gameResult-container th {
+	background-color: #00a005b6;
+	color: white;
 	padding: 10px;
 	text-align: left;
 	border: 1px solid black;
@@ -204,4 +233,3 @@ main{
   .gameResult-container tr:hover {
 	background-color: #ddd;
   }
-
