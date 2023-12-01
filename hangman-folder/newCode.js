@@ -92,7 +92,7 @@ function guessLetter(letter) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
-		document.getElementById('resultText').innerText = 'Haha, Du förlorade!';
+		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 	} else if (!wordState.includes("_")) {
