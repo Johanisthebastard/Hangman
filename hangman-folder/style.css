@@ -160,17 +160,48 @@ main{
 }
 
 .modal-content {
-	font-family: 'Comic Neue', cursive;
-    background-color: #00ffc8;
+    background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
-	border-radius: 10px;
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-.modal-content button {
-	border-radius: 5px;
-	background: #b91919;
+/*Highscorepagestyling*/
+
+.gameResult-container {
+	width: 100%;
+	margin-top: 20px;
+	
+	
+  }
+  
+  
+  .gameResult-container tr {
+	background-color: #01b3ffb4;
+	
+  }
+  
+
+  .gameResult-container th {
+	background-color: #00a005b6;
 	color: white;
-}
+	padding: 10px;
+	text-align: left;
+	border: 1px solid black;
+
+  }
+  
+  
+  .gameResult-container td {
+	padding: 8px;
+	text-align: left;
+	border: 1px solid black;
+	
+  }
+  
+
+  .gameResult-container tr:hover {
+	background-color: #ddd;
+  }
+
