@@ -158,6 +158,8 @@ document.addEventListener('keydown', (event) => {
 	}
 });
 
+
+
 letterButtons.forEach((key) => {
 	console.log('letterButtons forEach');
 	key.addEventListener("click", () => {
@@ -205,6 +207,7 @@ letterButtons.forEach((key) => {
 	hintBtn.addEventListener('click', () => {
 		chickenShit()
 		console.log(`Knappen har klickats ${hint} gånger`);
+
 	});
 
 	let hintClicks = 0;
@@ -217,7 +220,12 @@ letterButtons.forEach((key) => {
 		}, [])
 		if (unGuessed.length > 0) {
 			const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
+
 			const theLetter = chosenWord[randomIndex];
+			const keyElement = document.querySelector(`[data-key="${theLetter}"]`);
+			if (keyElement) {
+				keyElement.classList.add("clicked");
+			}
 			for (let i = 0; i < chosenWord.length; i++){
 				if (chosenWord[i] === theLetter) {
 					wordState = wordState.substring(0, i) + theLetter + wordState.substring(i + 1);
