@@ -182,3 +182,41 @@ main{
 	font-weight: 900;
 	font-size: 1.3em;
 }
+
+/*Highscorepagestyling*/
+
+.gameResult-container {
+	width: 100%;
+	margin-top: 20px;
+	
+	
+  }
+  
+  
+  .gameResult-container tr {
+	background-color: #01b3ffb4;
+	
+  }
+  
+
+  .gameResult-container th {
+	background-color: #00a005b6;
+	color: white;
+	padding: 10px;
+	text-align: left;
+	border: 1px solid black;
+
+  }
+  
+  
+  .gameResult-container td {
+	padding: 8px;
+	text-align: left;
+	border: 1px solid black;
+	
+  }
+  
+
+  .gameResult-container tr:hover {
+	background-color: #ddd;
+  }
