@@ -100,19 +100,24 @@ function guessLetter(letter) {
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 		totalGuesses = 0;
 	} else if (!wordState.includes("_")) {
-		gameWon = true;
-		console.log("You win!");
-		// Show the game result modal with "Du vann"
-		document.getElementById('resultText').innerText = 'LOL, du vann! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger.';
-
-		document.getElementById('gameResult').style.display = 'block';
-		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
-		totalGuesses = 0;
+	winCheck()
 	}
-
 	// Function to close the modal
 
 } // SPELET SLUTAR
+
+function winCheck () {
+ 	if (!wordState.includes("_")) {
+	gameWon = true;
+	console.log("You win!");
+	// Show the game result modal with "Du vann"
+	document.getElementById('resultText').innerText = 'LOL, du vann! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger.';
+
+	document.getElementById('gameResult').style.display = 'block';
+	saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+	totalGuesses = 0;
+}
+}
 
 //CLOSE PAGE & RESET GAME
 document.addEventListener('DOMContentLoaded', () => {
@@ -218,7 +223,7 @@ letterButtons.forEach((key) => {
 // HIIIIIIINTS
 	hintBtn.addEventListener('click', () => {
 		chickenShit()
-		console.log(`Knappen har klickats ${hint} gånger`);
+		// console.log(`Knappen har klickats ${hints} gånger`);
 
 	});
 
@@ -243,8 +248,11 @@ letterButtons.forEach((key) => {
 				}
 			}
 			updateWordDisplay()
-			checkForWin()
+			// checkForWin()
 			hints++;
+		}
+		if (!wordState.includes("_")) {
+			winCheck()
 		}
 	}
 
@@ -257,7 +265,7 @@ letterButtons.forEach((key) => {
 	function resetGame(){
 		resetKeyboardAppearance()
 		updateWord()
-		hint = 0;
+		hints = 0;
 
 	}
 
@@ -313,14 +321,14 @@ displayGameResults(false)
 
 
 // TOGGLE VIEWS (från david)
-play.addEventListener('click', showPlayView)
+// play.addEventListener('click', showPlayView)
 
-function hideViews() {
-	allTheViews.forEach(view => {
-		view.classList.add('invisible')
-	})
-}
-function showPlayView() {
-	hideViews()
-	gamePage.classList.remove('invisible')
-}
+// function hideViews() {
+// 	allTheViews.forEach(view => {
+// 		view.classList.add('invisible')
+// 	})
+// }
+// function showPlayView() {
+// 	hideViews()
+// 	gamePage.classList.remove('invisible')
+// }
