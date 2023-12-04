@@ -19,6 +19,8 @@ const wordDisplay = document.getElementById('wordDisplay');
 let hintUsed = false;
 let hint = 0;
 
+
+
 let chosenWord;
 let wordState;
 let guessedLetters = [];
@@ -96,7 +98,7 @@ function guessLetter(letter) {
 		// Show the game result modal with "Du förlorade"
 		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord, 'Du gissade', 'gånger'
 		document.getElementById('gameResult').style.display = 'block';
-		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon, hintUsed)
 	} else if (!wordState.includes("_")) {
 		gameWon = true;
 		console.log("You win!");
@@ -104,7 +106,7 @@ function guessLetter(letter) {
 		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord, ' och du gissade', 'gånger';
 
 		document.getElementById('gameResult').style.display = 'block';
-		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon, hintUsed)
 	}
 
 	// Function to close the modal
@@ -240,11 +242,12 @@ function chickenShit() {
 			}
 		}
 		updateWordDisplay()
-		checkForWin()
-		hints++;
+		hint++;
+		hintUsed = true
+		console.log("Hint used", hintUsed);
 	}
-	return acc
-} []
+	//return acc
+}
 if (unGuessed.length > 0) {
 	const randomIndex = unGuessed[Math.floor(Math.random() * unGuessed.length)]
 
@@ -261,7 +264,10 @@ if (unGuessed.length > 0) {
 	// wordState = wordState.substring(0, randomIndex) + chosenWord[randomIndex] + wordState.substring(randomIndex + 1)
 	updateWordDisplay()
 	//checkForWin()
-	hintClicks++;
+	hint++;
+	hintUsed = true;
+	console.log("Hint used:", hintUsed);
+	console.log("Hint", hint);
 }
 
 
@@ -287,31 +293,63 @@ function resetKeyboardAppearance() {
 
 /// HIIIIIIIGH SCOOOOOORE
 
+/// sorterings knapp 
+
+document.addEventListener('DOMContentLoaded', () => {
+	const sortButton = document.getElementById('sortButton');
+	let sortByDate = false;  // Ensure sortByDate is initialized
+
+	if (sortButton) {
+		sortButton.addEventListener('click', () => {
+			sortByDate = !sortByDate;  // Toggle sortByDate value
+			displayGameResults(sortByDate);
+		});
+	}
+
+
+});
+
+
+console.log("Hint used:", hintUsed); // Add this line
 
 // function för att spara highscore till local storage
+
 function saveGameResult(username, wordLength, wrongGuesses, date, won, hintUsed) {
 	const gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
 	gameResults.push({
-		username, wordLength, wrongGuesses, date, won,
-		hintUsed: hintClicks > 0
+		username,
+		wordLength,
+		wrongGuesses,
+		date,
+		won,
+		hintUsed: hintUsed,
 	});
-	gameResults.sort((a, b) => {
-		gameResults.sort((a, b) => {
 
-			if (a.wrongGuesses !== b.wrongGuesses) {
-				return a.wrongGuesses - b.wrongGuesses;
-			}
 
-			const dateComparison = new Date(b.date) - new Date(a.date);
-			if (dateComparison !== 0) {
-				return dateComparison;
-			}
-			return a.hintUsed && !b.hintUsed ? 1 : -1;
-		});
-	})
-	console.log('gameResults', gameResults);
+	gameResults.sort(sortGameResults);
 	localStorage.setItem('gameResults', JSON.stringify(gameResults));
 }
+
+function sortGameResults(a, b) {
+	if (a.wrongGuesses !== b.wrongGuesses) {
+		return a.wrongGuesses - b.wrongGuesses;
+	}
+
+	// Place players who used the hint at the bottom
+	if (a.hintUsed && !b.hintUsed) {
+		return 1;
+	} else if (!a.hintUsed && b.hintUsed) {
+		return -1;
+	}
+
+	const dateComparison = new Date(b.date) - new Date(a.date);
+	if (dateComparison !== 0) {
+		return dateComparison;
+	}
+
+	return 0;
+}
+
 // function för att visa game result på poängvyn
 function displayGameResults(sortByDate) {
 	const gameResultContainer = document.querySelector('.gameResult-container')
@@ -342,16 +380,3 @@ function displayGameResults(sortByDate) {
 displayGameResults(false)
 
 
-
-// TOGGLE VIEWS (från david)
-play.addEventListener('click', showPlayView)
-
-function hideViews() {
-	allTheViews.forEach(view => {
-		view.classList.add('invisible')
-	})
-}
-function showPlayView() {
-	hideViews()
-	gamePage.classList.remove('invisible')
-}
