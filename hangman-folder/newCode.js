@@ -7,6 +7,7 @@ const hintBtn = document.querySelector('#hint-btn');
 const scoreButton = document.querySelector('#highScore-btn');
 const backToGame = document.querySelector('#backToGameBtn');
 let playerName
+let totalGuesses = 0;
 
 // Koden för ordgissningsspelet
 import words from "./svenska-ord.js";
@@ -72,12 +73,14 @@ function guessLetter(letter) {
 
 	if (chosenWord.includes(letter)) {
 		let newWordState = "";
+		totalGuesses++;
 		for (let i = 0; i < chosenWord.length; i++) {
 			newWordState += chosenWord[i] === letter ? letter : wordState[i];
 		}
 		wordState = newWordState;
 	} else {
 		wrongGuesses++;
+		totalGuesses++;
 		// Visa en del av gubben för varje felaktig gissning
 		if (wrongGuesses <= parts.length) {
 			parts[wrongGuesses - 1].classList.remove('invisible');
@@ -92,17 +95,19 @@ function guessLetter(letter) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
-		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord, 'Du gissade', 'gånger'
+		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord + 'Du gissade ' + totalGuesses + ' gånger'
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		totalGuesses = 0;
 	} else if (!wordState.includes("_")) {
 		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
-		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord, ' och du gissade', 'gånger';
+		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger';
 
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		totalGuesses = 0;
 	}
 
 	// Function to close the modal
