@@ -95,7 +95,7 @@ function guessLetter(letter) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
-		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord + 'Du gissade ' + totalGuesses + ' gånger'
+		document.getElementById('resultText').innerText = 'Haha, du förlorade! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger.'
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
 		totalGuesses = 0;
@@ -103,7 +103,7 @@ function guessLetter(letter) {
 		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
-		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger';
+		document.getElementById('resultText').innerText = 'LOL, du vann! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger.';
 
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
