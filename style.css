@@ -1,0 +1,222 @@
+
+/*------- FONTS --------*/
+
+
+* {
+	box-sizing: border-box;
+}
+html {
+    min-height: 100%;
+}
+
+header{
+	display: flex;
+	justify-content: center;
+}
+
+header > h1 {
+	font-family: Arial, Helvetica, sans-serif
+
+}
+
+
+body{
+	height: 100vh;
+	width: 100%;
+	background: linear-gradient(180deg, #FFF 0%, #01B3FF 38.54%, #00A006 95.83%) fixed;
+
+}
+
+main{
+
+}
+
+.user-container{
+	display: grid;
+	gap: 2em;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+}
+
+.start{
+	width: 100%;
+	display: inline-flex;
+	justify-content: center;
+}
+
+.invisible{
+	display: none;
+}
+
+.user{
+	justify-content: center;
+}
+
+#userInput{
+	border-radius: 10px;
+	padding: 1em 3em;
+	text-align: center;
+}
+
+
+.levels > div{
+	display: flex;
+	justify-content: center;
+}
+
+.play-button{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	padding: 1em 3em;
+}
+
+
+.guesses{
+	display: flex;
+	flex-direction: column;
+}
+
+
+.word-container{
+	display: flex;
+	justify-content: center;
+}
+#wordDisplay{
+	font-size: 4em;
+	font-family: 'Comic Neue', cursive;
+}
+
+.gubbe-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.gubbe{
+	max-width: 1101px;
+	height: auto
+}
+
+/*
+.gamePageHide{
+	display: none;
+}
+
+.gamePageShow{
+	display: block;
+} */
+
+
+
+/* Media Query för skärmar mindre än 760px */
+@media screen and (max-width: 760px) {
+	.gubbe{
+		width: 700px;
+		height: auto;
+	}
+
+	#wordDisplay{
+	font-size: 3em;
+
+}
+}
+
+/* Media Query för skärmar mindre än 470px */
+@media screen and (max-width: 520px) {
+	.gubbe{
+		width: 520px;
+		height: auto;
+	}
+
+	#wordDisplay{
+	font-size: 2em;
+
+}
+}
+
+@media screen and (max-width: 385px) {
+.gubbe{
+
+		width: 350px;
+		height: fit-content;
+	}
+}
+
+
+/* Add this to your CSS file */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+	font-family: 'Comic Neue', cursive;
+    background-color: #00ffc8;
+    margin: 15% auto; /* 15% from the top and centered */
+	border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal-content button {
+	border-radius: 5px;
+	background: #b91919;
+	color: white;
+}
+
+.alertTheNerd {
+	visibility: hidden;
+	color: rgb(127, 3, 3);
+	font-weight: 900;
+	font-size: 1.3em;
+}
+
+/*Highscorepagestyling*/
+
+.gameResult-container {
+	width: 100%;
+	margin-top: 20px;
+	
+	
+  }
+  
+  
+  .gameResult-container tr {
+	background-color: #01b3ffb4;
+	
+  }
+  
+
+  .gameResult-container th {
+	background-color: #00a005b6;
+	color: white;
+	padding: 10px;
+	text-align: left;
+	border: 1px solid black;
+
+  }
+  
+  
+  .gameResult-container td {
+	padding: 8px;
+	text-align: left;
+	border: 1px solid black;
+	
+  }
+  
+
+  .gameResult-container tr:hover {
+	background-color: #ddd;
+  }
