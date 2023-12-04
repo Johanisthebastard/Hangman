@@ -17,7 +17,7 @@ const letterButtons = document.querySelectorAll(".key-container [data-key]");
 console.log('letterbuttons is ', letterButtons);
 const wordDisplay = document.getElementById('wordDisplay');
 
-let hint = 0;
+let hints = 0;
 let chosenWord;
 let wordState;
 let guessedLetters = [];
@@ -26,6 +26,7 @@ let gameWon ;
 let gameDate ;
 let wordLength ;
 const maxWrongGuesses = 6;
+let totalGuesses = 0;
 
 function updateWord(event) {
 	const levels = document.querySelectorAll('input[name="level"]');
@@ -72,12 +73,14 @@ function guessLetter(letter) {
 
 	if (chosenWord.includes(letter)) {
 		let newWordState = "";
+		totalGuesses++;
 		for (let i = 0; i < chosenWord.length; i++) {
 			newWordState += chosenWord[i] === letter ? letter : wordState[i];
 		}
 		wordState = newWordState;
 	} else {
 		wrongGuesses++;
+		totalGuesses++;
 		// Visa en del av gubben för varje felaktig gissning
 		if (wrongGuesses <= parts.length) {
 			parts[wrongGuesses - 1].classList.remove('invisible');
@@ -92,17 +95,19 @@ function guessLetter(letter) {
 		gameWon = false;
 		console.log("You lose!");
 		// Show the game result modal with "Du förlorade"
-		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord, 'Du gissade', 'gånger'
+		document.getElementById('resultText').innerText = 'Haha, Du förlorade! Ordet var: ' + chosenWord, 'Du gissade ' + totalGuesses + ' gånger'
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		totalGuesses = 0;
 	} else if (!wordState.includes("_")) {
 		gameWon = true;
 		console.log("You win!");
 		// Show the game result modal with "Du vann"
-		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord, ' och du gissade', 'gånger';
+		document.getElementById('resultText').innerText = 'LOL, Du vann! Ordet var: ' + chosenWord, ' och du gissade' + totalGuesses + ' gånger';
 
 		document.getElementById('gameResult').style.display = 'block';
 		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		totalGuesses = 0;
 	}
 
 	// Function to close the modal
@@ -217,7 +222,6 @@ letterButtons.forEach((key) => {
 
 	});
 
-	let hintClicks = 0;
 	function chickenShit() {
 		const unGuessed = wordState.split("").reduce((acc, letter, index) => {
 			if (letter === "_") {
@@ -240,7 +244,7 @@ letterButtons.forEach((key) => {
 			}
 			updateWordDisplay()
 			checkForWin()
-			hintClicks++;
+			hints++;
 		}
 	}
 
