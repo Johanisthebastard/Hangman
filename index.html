@@ -233,6 +233,18 @@
 
 		</section>
 	</main>
+
+	<button onclick="playAudio()">Tryck för att komma i stämning</button>
+<audio id="backgroundMusic" loop>
+    <source src="Jingle-Bells-3(chosic.com).mp3" type="audio/mp3">
+</audio>
+
+<script>
+    function playAudio() {
+        var audio = document.getElementById('backgroundMusic');
+        audio.play();
+    }
+</script>
 </body>
 
 </html>
