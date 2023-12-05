@@ -1,4 +1,4 @@
-import words from "./svenska-ord.js";
+import words from "../svenska-ord.js";
 
 
 const difficultyRadios = document.querySelectorAll('input[name="level"]');

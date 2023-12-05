@@ -143,8 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (resetButton) {
 		resetButton.addEventListener('click', () => {
 			document.getElementById('gameResult').style.display = 'none';
-			switchPage()
 			resetGame()
+			switchPage()
+
 		});
 	}
 });
@@ -306,6 +307,7 @@ function switchPage() {
 
 function resetGame() {
 	resetKeyboardAppearance()
+	gamePage.classList.add('invisible')
 	updateWord()
 	hints = 0;
 
