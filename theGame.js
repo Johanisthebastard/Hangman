@@ -143,8 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (resetButton) {
 		resetButton.addEventListener('click', () => {
 			document.getElementById('gameResult').style.display = 'none';
+			gamePage.classList.add('invisible')
+			startPage.classList.remove('invisible')
 			resetGame()
-			switchPage()
 
 		});
 	}
@@ -300,6 +301,7 @@ function chickenShit() {
 function switchPage() {
 	startPage.classList.toggle('invisible')
 	gamePage.classList.toggle('invisible')
+
 }
 
 
@@ -307,7 +309,8 @@ function switchPage() {
 // Reset Game
 function resetGame() {
 	resetKeyboardAppearance()
-	gamePage.classList.add('invisible')
+	// gamePage.classList.add('invisible')
+	// highScorePage.classList.add('invisible')
 	updateWord()
 	hints = 0;
 
@@ -357,7 +360,7 @@ function displayGameResults(sortByDate, ascending = true) {
 			return ascending ? dateA - dateB : dateB - dateA;
 		});
 	}
-	
+
 
 
 
