@@ -171,8 +171,10 @@
 	/*Highscorepagestyling*/
 
 	.gameResult-container {
-	width: 100%;
+	width: auto;
 	margin-top: 20px;
+	
+	
 	}
 
 	.gameResult-container tr {
