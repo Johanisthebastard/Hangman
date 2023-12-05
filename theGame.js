@@ -296,7 +296,7 @@ function chickenShit() {
 	}
 }
 
-
+// Switch Page KNAPP
 function switchPage() {
 	startPage.classList.toggle('invisible')
 	gamePage.classList.toggle('invisible')
@@ -304,7 +304,7 @@ function switchPage() {
 
 
 
-
+// Reset Game
 function resetGame() {
 	resetKeyboardAppearance()
 	gamePage.classList.add('invisible')
@@ -314,7 +314,7 @@ function resetGame() {
 
 }
 
-
+// Reset Keyboard
 function resetKeyboardAppearance() {
 	letterButtons.forEach((key) => {
 		key.classList.remove("clicked");
@@ -324,9 +324,7 @@ function resetKeyboardAppearance() {
 
 
 
-/// HIIIIIIIGH SCOOOOOORE
-
-
+/// HIGHSCORE
 
 
 // function för att spara highscore till local storage
