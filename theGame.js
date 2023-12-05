@@ -111,7 +111,7 @@ function guessLetter(letter) {
 		// Show the game result modal with "Du förlorade"
 		document.getElementById('resultText').innerText = 'Haha, du förlorade! Ordet var: ' + chosenWord + ' och du gissade ' + totalGuesses + ' gånger.'
 		document.getElementById('gameResult').style.display = 'block';
-		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon, hints)
 		totalGuesses = 0;
 	} else if (!wordState.includes("_")) {
 		winCheck()
