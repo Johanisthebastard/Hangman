@@ -131,7 +131,7 @@ function winCheck() {
 
 
 		document.getElementById('gameResult').style.display = 'block';
-		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon)
+		saveGameResult(playerName, wordLength, wrongGuesses, gameDate, gameWon, hints)
 		totalGuesses = 0;
 	}
 }
@@ -328,9 +328,9 @@ function resetKeyboardAppearance() {
 
 
 // function för att spara highscore till local storage
-function saveGameResult(username, wordLength, wrongGuesses, date, won) {
+function saveGameResult(username, wordLength, wrongGuesses, date, won, hints) {
 	const gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
-	gameResults.push({ username, wordLength, wrongGuesses, date, won });
+	gameResults.push({ username, wordLength, wrongGuesses, date, won, hints });
 	gameResults.sort((a, b) => {
 		if (a.wrongGuesses !== b.wrongGuesses) {
 			return a.wrongGuesses - b.wrongGuesses;
@@ -356,6 +356,7 @@ function displayGameResults(sortByDate, ascending = true) {
 	}
 
 
+
 	gameResults.forEach((entry, index) => {
 		const tableRow = document.createElement('tr');
 		tableRow.innerHTML = `
@@ -364,6 +365,7 @@ function displayGameResults(sortByDate, ascending = true) {
            <td>${entry.wrongGuesses}</td>
            <td>${new Date(entry.date).toLocaleString()}</td>
            <td>${entry.won ? 'Won' : 'Lost'}</td>
+		   <td>${entry.hints}</td>
        `;
 		gameResultContainer.appendChild(tableRow);
 	});
