@@ -248,6 +248,11 @@ backToGame.addEventListener('click', () => {
 	startPage.classList.remove('invisible')
 	resetGame()
 });
+// knapp
+document.getElementById('visaSpel').addEventListener('click', () => {
+	highScorePage.classList.add('invisible');
+	gamePage.classList.remove('invisible');
+});
 
 
 //Kroppsdelar
@@ -335,7 +340,7 @@ function saveGameResult(username, wordLength, wrongGuesses, date, won, hints) {
 	const gameResults = JSON.parse(localStorage.getItem('gameResults')) || [];
 	gameResults.push({ username, wordLength, wrongGuesses, date, won, hints });
 	gameResults.sort((a, b) => {
-		if (hints !== undefined ) {
+		if (hints !== undefined) {
 			return 99;
 		} else if (a.wrongGuesses !== b.wrongGuesses) {
 			return a.wrongGuesses - b.wrongGuesses;
@@ -343,7 +348,7 @@ function saveGameResult(username, wordLength, wrongGuesses, date, won, hints) {
 		else {
 			return new Date(b.date) - new Date(a.date);
 		}
-})
+	})
 	console.log('gameResults', gameResults);
 	localStorage.setItem('gameResults', JSON.stringify(gameResults));
 }
