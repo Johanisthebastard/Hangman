@@ -61,7 +61,7 @@
 
 @media screen and (max-width: 385px) {
     .row1, .row2, .row3 {
-        width: 100%; /* Använd hela skärmens bredd */
+        width: 320px; /* Använd hela skärmens bredd */
         height: 2em;
     }
     .row1 > *, .row2 > *, .row3 > * {
