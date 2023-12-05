@@ -313,7 +313,7 @@ function resetGame() {
 	// highScorePage.classList.add('invisible')
 	updateWord()
 	hints = 0;
-
+	parts.forEach(part => part.classList.add('invisible'));
 
 }
 
