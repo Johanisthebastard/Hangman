@@ -44,7 +44,7 @@ function updateWord(event) {
 
 	})
 	chosenWord = chooseWord(words, selectedDifficulty).toUpperCase();
-	console.log('Cheat mode - ta bort innan publiuceriung!! ', chosenWord);
+	// console.log('Cheat mode - ta bort innan publiuceriung!! ', chosenWord);
 	wordState = "_".repeat(chosenWord.length);
 	guessedLetters = [];
 	wrongGuesses = 0;
